@@ -1,0 +1,35 @@
+<%- include("partials/header"); -%>
+
+<div class="welcome">
+  <h1>Welcome</h1>
+  <p>Hi, my name is Holly. Welcome to my journal. I currently live in north London and ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+</div>
+
+<!-- posts is the EJS tag that corresponds to the array of found items when we searched for everything in the DB -->
+<%  posts.forEach(function(post){ %>
+  
+  <h1> 
+    <!-- Format the date and time  -->
+    <% const date = post.date;
+       const timeOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+       const formattedTime = date.toLocaleTimeString('en-UK', timeOptions);
+       const dateObj = new Date(date);
+       const options = { day: 'numeric', month: 'long', year: 'numeric' };
+       const formattedDate = dateObj.toLocaleDateString('en-UK', options);
+    %> 
+    <%= formattedDate %>
+    <span class="time">
+      <%= formattedTime %>
+    </span>
+  </h1>
+
+  <p>
+    <%=post.content.substring(0, 100) + " ..."%>
+    <a href="/posts/<%= post._id %>" class="link">read more</a>
+  </p>
+
+<% }) %>
+
+<%- include("partials/footer"); -%>
+
+
